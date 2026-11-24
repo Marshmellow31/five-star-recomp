@@ -50,6 +50,9 @@ internal sealed unsafe class XMemReservation
     /// </summary>
     public XMemReservation? CpuView { get; set; }
 
+    /// <summary>For a CPU reservation, the GPU-only reservation that aliases its pages (<see cref="CpuView"/> the other way).</summary>
+    public XMemReservation? GpuAlias { get; set; }
+
     public bool Overlaps(nint address, ulong size)
     {
         return (ulong)address < (ulong)Address + Size && (ulong)Address < (ulong)address + size;

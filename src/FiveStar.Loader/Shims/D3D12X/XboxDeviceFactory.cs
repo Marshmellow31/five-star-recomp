@@ -63,6 +63,9 @@ internal sealed unsafe class XboxDeviceFactory : IDisposable
         GameMemory = new XboxGameMemoryBuffers(Objects, PlacedResources.Addresses, log);
         PlacedResources.GameMemory = GameMemory;
 
+        StalePages = new StaleGpuPages(PlacedResources.Addresses, memory, log);
+        memory.ObservePages(StalePages.Changed);
+
         Uploads = new UploadArena(Objects, PlacedResources.Addresses, log);
         AddressBuffers = new AddressBufferViews(GameMemory);
         AddressViews = new AddressShaderViews(Textures, AddressBuffers, Warnings, log);
@@ -128,6 +131,9 @@ internal sealed unsafe class XboxDeviceFactory : IDisposable
 
     /// <summary>Device slot 133 and the console-to-desktop GPU address table.</summary>
     public XboxPlacedResources PlacedResources { get; }
+
+    /// <summary>Pages the game remaps under the buffers of <see cref="PlacedResources"/>, which keep their old frames.</summary>
+    public StaleGpuPages StalePages { get; }
 
     /// <summary>The memory of list slot 148.</summary>
     public UploadArena Uploads { get; }

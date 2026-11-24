@@ -112,7 +112,12 @@ kept their old pages.
 
 GPU limit: desktop buffers placed over the pages when a slot-133 resource was created, and the address map's views of
 them, keep the pages of that moment. A later remap is seen by the CPU and by resources created after it, not by
-earlier ones. The same holds for `XMemMapPhysicalPages`.
+earlier ones. The same holds for `XMemMapPhysicalPages`. Once the old frame is mapped again at another address, GPU
+writes through such a buffer change the memory there: a copy into the buffer reaches the other address and not the
+buffer's own (RTX 5070 and the loader tests). The loader reports both (`StaleGpuPages`, always on): a remap or unmap
+under a buffer of the address table as `[gpu pages]` with the GPU and CPU addresses and both frames, and the old
+frame mapped again with the address the buffer's writes now land at; the first 16 of each in full, then totals at
+every power of two.
 
 ## Working set statistics
 
