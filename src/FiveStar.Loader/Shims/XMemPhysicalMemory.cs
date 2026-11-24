@@ -27,6 +27,7 @@ internal sealed unsafe class XMemPhysicalMemory : IDisposable
     private readonly XMemReservationTable _reservations = new();
     private readonly List<(nint Address, nuint Size)> _placeholders = [];
     private XMemReservation? _lastCpuReservation;
+    private Action<nint, ulong, ulong>? _pageChanged;
 
     public XMemPhysicalMemory(LoaderLog log)
     {
@@ -305,6 +306,32 @@ internal sealed unsafe class XMemPhysicalMemory : IDisposable
         return cpu.Address + (address - reservation.Address);
     }
 
+    /// <summary>
+    /// Where the GPU addresses the page the CPU maps at <paramref name="address"/>: the same offset in the GPU-only
+    /// alias of its reservation; 0 when it has none.
+    /// </summary>
+    public nint GpuAlias(nint address)
+    {
+        var reservation = _reservations.Find(address);
+        var alias = reservation?.GpuAlias;
+
+        if (reservation is null || alias is null)
+        {
+            return 0;
+        }
+
+        return alias.Address + (address - reservation.Address);
+    }
+
+    /// <summary>
+    /// Calls <paramref name="changed"/> (address, previous frame, new frame; 0 is none) every time the frame at a mapped
+    /// address changes: a remap, an unmap or a first mapping, from the thread that made it.
+    /// </summary>
+    public void ObservePages(Action<nint, ulong, ulong> changed)
+    {
+        Volatile.Write(ref _pageChanged, changed);
+    }
+
     /// <summary>Whether a page is mapped at <paramref name="address"/> (after <see cref="CpuAddress"/>); false outside every reservation.</summary>
     [HotPath]
     public bool IsMapped(nint address)
@@ -340,17 +367,24 @@ internal sealed unsafe class XMemPhysicalMemory : IDisposable
             return false;
         }
 
+        ulong previous = reservation.FrameAt(address);
+        bool mapped;
+
         if (frame == 0)
         {
-            return reservation.Unmap(address);
+            mapped = reservation.Unmap(address);
         }
-
-        if (!_pages.TryLocate(frame, address, reservation.Origin, out var chunk, out ulong offset))
+        else
         {
-            return false;
+            mapped = _pages.TryLocate(frame, address, reservation.Origin, out var chunk, out ulong offset) && reservation.Map(address, frame, chunk, offset);
         }
 
-        return reservation.Map(address, frame, chunk, offset);
+        if (mapped && previous != frame)
+        {
+            Volatile.Read(ref _pageChanged)?.Invoke(address, previous, frame);
+        }
+
+        return mapped;
     }
 
     private void CoalesceIfWhole(nint address, ulong size)
@@ -444,6 +478,7 @@ internal sealed unsafe class XMemPhysicalMemory : IDisposable
         if (previous is not null && previous.Size == reservation.Size)
         {
             reservation.CpuView = previous;
+            previous.GpuAlias = reservation;
             _log.Detail($"  [xmem] 0x{reservation.Address:x} (GPU only) aliases the pages of 0x{previous.Address:x}");
         }
 
