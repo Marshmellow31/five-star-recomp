@@ -17,6 +17,8 @@ No game files, keys or extracted data are part of this repository. Every tool ru
 
 ## Status
 
+[![Progress: boot stages, shaders, runtime, textures, models and audio](docs/assets/progress-summary.svg)](https://github.com/ThatRecompDev/five-star-recomp/wiki/Status)
+
 GTA VI does not run yet. Its main executable is now available: under the loader it starts, runs through its memory
 set-up, archive opening and graphics device set-up, presents frames to its own window, shows its logo, intro art and
 first-run screens, loads story mode and has reached the story intro's title card, then stops. Details and numbers are

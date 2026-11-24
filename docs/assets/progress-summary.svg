@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="248" viewBox="0 0 900 248" role="img" aria-label="Five Star Recomp progress">
+<title>Five Star Recomp progress</title>
+<style>
+svg { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+.bg { fill: #fcfcfb; } .ink { fill: #0b0b0b; } .ink2 { fill: #52514e; } .mute { fill: #898781; }
+.d { fill: #0ca30c; } .p { fill: #fab219; } .t { fill: #c3c2b7; }
+.pill { fill: #fcfcfb; fill-opacity: .9; } .hit { fill: transparent; } .hit:hover { fill: #0b0b0b; fill-opacity: .08; }
+@media (prefers-color-scheme: dark) {
+  .bg { fill: #1a1a19; } .ink { fill: #f0efec; } .ink2 { fill: #c3c2b7; } .mute { fill: #9a9893; }
+  .t { fill: #4a4945; } .pill { fill: #1a1a19; } .hit:hover { fill: #ffffff; }
+}
+</style>
+<rect class="bg" width="900" height="248"/>
+<text class="ink" x="16.0" y="31.0" font-size="15.0" font-weight="600">Booting the game: 10 of 12 stages, 1 partial</text>
+<rect class="d" x="16.0" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="88.5" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="161.0" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="233.5" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="306.0" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="378.5" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="451.0" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="523.5" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="596.0" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="d" x="668.5" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="p" x="741.0" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<rect class="t" x="813.5" y="40.0" width="70.5" height="20.0" rx="2.0"/>
+<text class="ink2" x="16.0" y="78.0" font-size="12.0">Now: Story load (corruption fixed; the GPU frame is too slow (loops at the guard))</text>
+<text class="ink" x="16.0" y="110.5" font-size="12.0">Shaders translated</text>
+<rect class="d" x="170.0" y="100.0" width="343.0" height="12.0" rx="2.0"/>
+<rect class="p" x="515.0" y="100.0" width="3.0" height="12.0" rx="2.0"/>
+<text class="ink2" x="536.0" y="110.5" font-size="12.0">99.8%, 25,862 of 25,908 programs, 46 partial</text>
+<text class="ink" x="16.0" y="134.5" font-size="12.0">Console runtime</text>
+<rect class="d" x="170.0" y="124.0" width="348.0" height="12.0" rx="2.0"/>
+<text class="ink2" x="536.0" y="134.5" font-size="12.0">100%, 748 of 748 functions</text>
+<text class="ink" x="16.0" y="158.5" font-size="12.0">Textures</text>
+<rect class="d" x="170.0" y="148.0" width="348.0" height="12.0" rx="2.0"/>
+<text class="ink2" x="536.0" y="158.5" font-size="12.0">100%, 357,115 of 357,115 textures</text>
+<text class="ink" x="16.0" y="182.5" font-size="12.0">Models</text>
+<rect class="d" x="170.0" y="172.0" width="343.0" height="12.0" rx="2.0"/>
+<rect class="t" x="515.0" y="172.0" width="3.0" height="12.0" rx="2.0"/>
+<text class="ink2" x="536.0" y="182.5" font-size="12.0">99.93%, 4,304,343 of 4,306,994 geometries</text>
+<text class="ink" x="16.0" y="206.5" font-size="12.0">Audio</text>
+<rect class="d" x="170.0" y="196.0" width="348.0" height="12.0" rx="2.0"/>
+<text class="ink2" x="536.0" y="206.5" font-size="12.0">100%, 1,603,231 of 1,603,231 sounds</text>
+<rect class="d" x="16.0" y="226.0" width="12.0" height="12.0" rx="2.0"/>
+<text class="ink" x="34.0" y="236.5" font-size="12.0">done</text>
+<rect class="p" x="72.4" y="226.0" width="12.0" height="12.0" rx="2.0"/>
+<text class="ink" x="90.4" y="236.5" font-size="12.0">done through a fallback or stand-in</text>
+<rect class="t" x="333.4" y="226.0" width="12.0" height="12.0" rx="2.0"/>
+<text class="ink" x="351.4" y="236.5" font-size="12.0">not yet</text>
+</svg>

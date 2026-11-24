@@ -81,6 +81,22 @@ Short, factual and to the point.
   Edit them there, not on the Wiki tab (the next publish overwrites it). Link pages as `Page.md`.
 - A doc changes in the same pull request as the code it describes.
 
+## When to update progress
+
+`docs/status/manual.json` holds the counts behind the progress images. Update it in the same pull request when the
+change moves one of them, then run the commands in [docs/status/README.md](docs/status/README.md) and commit
+`status.json` and both images with it.
+
+| Change | Update it? |
+|---|---|
+| A boot stage starts working, or one that worked stops | Yes |
+| A count changes: shaders, imports, GDK calls, textures, models, sounds | Yes; say in the pull request how it was measured |
+| A "still needed" item is fixed, or a new one is found | Yes |
+| A refactor, test, doc or fix that moves no count | No |
+
+Raise a number only for what you measured. Work that runs only through a fallback or stand-in is `partial`, not `done`.
+When you cannot measure it (no dump, or not the hardware), leave the file alone and say so in the pull request.
+
 ## Submitting a change
 
 1. Open an issue first for anything larger than a fix, so the approach can be agreed before you spend time on it.
