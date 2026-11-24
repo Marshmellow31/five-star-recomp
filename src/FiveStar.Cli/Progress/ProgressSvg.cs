@@ -12,8 +12,9 @@ namespace FiveStar.Cli.Progress;
 /// </summary>
 public static class ProgressSvg
 {
-    private const double Width = 900;
-    private const double Padding = 16;
+    internal const double Width = 900;
+    internal const double Padding = 16;
+
     private const double LegendSpace = 4;
     private const double LegendSwatch = 12;
     private const double LegendSwatchRadius = 2;
@@ -76,7 +77,7 @@ public static class ProgressSvg
         return Document(canvas.Body, Math.Ceiling(y + BottomSpace));
     }
 
-    private static double DrawLegend(SvgCanvas canvas, double y)
+    internal static double DrawLegend(SvgCanvas canvas, double y)
     {
         var x = Padding;
 
@@ -103,7 +104,7 @@ public static class ProgressSvg
         return y;
     }
 
-    private static string Document(string body, double height)
+    internal static string Document(string body, double height)
     {
         var size = $"width=\"{Width}\" height=\"{height}\" viewBox=\"0 0 {Width} {height}\"";
         var svg = new StringBuilder();

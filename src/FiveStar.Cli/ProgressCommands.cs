@@ -28,6 +28,8 @@ internal static class ProgressCommands
         {
             case "collect":
                 return RunCollect(new CommandArguments(args.Skip(1).ToList(), Flags));
+            case "summary":
+                return RunSummary(new CommandArguments(args.Skip(1).ToList(), Flags));
             case "help":
                 return RunHelp();
             default:
@@ -73,6 +75,21 @@ internal static class ProgressCommands
         return Success;
     }
 
+    private static int RunSummary(CommandArguments arguments)
+    {
+        if (arguments.Positionals.Count < TwoArguments)
+        {
+            return Usage("progress summary <status.json> <out.svg>");
+        }
+
+        var status = StatusFile.Read(arguments.Positionals[0]);
+        var output = arguments.Positionals[1];
+        File.WriteAllText(output, ProgressSummarySvg.Render(status));
+        Console.WriteLine("wrote " + output);
+
+        return Success;
+    }
+
     private static int RunHelp()
     {
         PrintHelp(Console.Out);
@@ -91,6 +108,8 @@ internal static class ProgressCommands
     {
         output.WriteLine("fivestar progress <command>");
         output.WriteLine("  <status.json> <out.svg>            render the progress report as an SVG (light and dark theme)");
+        output.WriteLine("  summary <status.json> <out.svg>    render the short chart of the README");
+
         output.WriteLine("  collect [--shaders <results.json>] [--dump <dir>] [--manual <manual.json>] <status.json>");
         output.WriteLine("                                     build status.json: shader stages from a translate run, textures");
         output.WriteLine("                                     and archive bytes from a dump, the rest from the manual file;");
